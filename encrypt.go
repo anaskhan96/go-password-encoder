@@ -2,7 +2,7 @@ package passwordEncryptor
 
 import "crypto/rand"
 
-const defaultLen = 512
+const defaultLen = 256
 const defaultIterations = 10000
 
 func generateSalt(length int) string {
