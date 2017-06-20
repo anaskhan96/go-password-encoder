@@ -29,3 +29,9 @@ func EncryptPassword(rawPwd string) (string, string) {
 	encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, defaultIterations, defaultKeyLen, sha512.New)
 	return string(salt), hex.EncodeToString(encodedPwd)
 }
+
+// VerifyPassword takes three arguments, the raw password, its generated salt, and the encoded password,
+// and returns a boolean value determining whether the password is the correct one or not.
+func VerifyPassword(rawPwd string, salt string, encodedPwd string) bool {
+	return encodedPwd == hex.EncodeToString(pbkdf2.Key([]byte(rawPwd), []byte(salt), defaultIterations, defaultKeyLen, sha512.New))
+}
