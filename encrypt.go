@@ -3,7 +3,6 @@ package passwordEncryptor
 import (
 	"crypto/rand"
 	"crypto/sha512"
-
 	"encoding/hex"
 
 	"golang.org/x/crypto/pbkdf2"
