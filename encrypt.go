@@ -5,8 +5,19 @@ import (
 	"crypto/sha512"
 	"encoding/hex"
 
+	"hash"
+
+	"crypto/sha256"
+
 	"golang.org/x/crypto/pbkdf2"
 )
+
+type options struct {
+	saltLen      int
+	iterations   int
+	keyLen       int
+	hashFunction func() hash.Hash
+}
 
 const defaultSaltLen = 256
 const defaultIterations = 10000
@@ -25,8 +36,19 @@ func generateSalt(length int) []byte {
 // EncryptPassword takes in a raw password as an argument, and returns its generated salt and encoded password,
 // with default options, unless a set of custom ones are provided.
 func EncryptPassword(rawPwd string, options ...interface{}) (string, string) {
-	salt := generateSalt(defaultSaltLen)
-	encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, defaultIterations, defaultKeyLen, sha512.New)
+	if len(options) == 0 {
+		salt := generateSalt(defaultSaltLen)
+		encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, defaultIterations, defaultKeyLen, sha512.New)
+		return string(salt), hex.EncodeToString(encodedPwd)
+	}
+	salt := generateSalt(options[0].(int))
+	var hashFunction func() hash.Hash
+	if options[3].(string) == "sha256" {
+		hashFunction = sha256.New
+	} else {
+		hashFunction = sha512.New
+	}
+	encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, options[1].(int), options[2].(int), hashFunction)
 	return string(salt), hex.EncodeToString(encodedPwd)
 }
 
