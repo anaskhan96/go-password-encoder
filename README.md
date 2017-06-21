@@ -1,13 +1,13 @@
-# go-password-encryptor
-[![Build Status](https://travis-ci.org/anaskhan96/go-password-encryptor.svg?branch=master)](https://travis-ci.org/anaskhan96/go-password-encryptor)
-[![GoDoc](https://godoc.org/github.com/anaskhan96/go-password-encryptor?status.svg)](https://godoc.org/github.com/anaskhan96/go-password-encryptor)
-[![Go Report Card](https://goreportcard.com/badge/github.com/anaskhan96/go-password-encryptor)](https://goreportcard.com/report/github.com/anaskhan96/go-password-encryptor)
+# go-password-encoder
+[![Build Status](https://travis-ci.org/anaskhan96/go-password-encoder.svg?branch=master)](https://travis-ci.org/anaskhan96/go-password-encoder)
+[![GoDoc](https://godoc.org/github.com/anaskhan96/go-password-encoder?status.svg)](https://godoc.org/github.com/anaskhan96/go-password-encoder)
+[![Go Report Card](https://goreportcard.com/badge/github.com/anaskhan96/go-password-encoder)](https://goreportcard.com/report/github.com/anaskhan96/go-password-encoder)
 
-This package in Go provides functions to encrypt a raw password (example, during registration on a site), and later verify it (example, while logging in to the site).
+This package in Go provides functions to encode a raw password (example, during registration on a site), and later verify it (example, while logging in to the site).
 
 Functions available:
 ```go
-func EncryptPassword(string, *Options) (string, string) // takes the raw password along with options, returns generated salt and hex encoded encrypted password
+func EncodePassword(string, *Options) (string, string) // takes the raw password along with options, returns generated salt and hex encoded encrypted password
 func VerifyPassword(string, string, string, *Options) bool // takes the raw password, the generated salt, and encoded password with options, and returns true or false
 ```
 
@@ -31,7 +31,7 @@ Hover over to [Usage](#usage) for a complete example.
 ### Installation
 
 ```bash
-go get github.com/anaskhan96/go-password-encryptor
+go get github.com/anaskhan96/go-password-encoder
 ```
 
 Run `go test` in the package's directory to run tests.
@@ -46,19 +46,19 @@ package main
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/anaskhan96/go-password-encryptor"
+	"github.com/anaskhan96/go-password-encoder"
 )
 
 func main() {
 	// Using the default options
-	salt, encodedPwd := passwordEncryptor.EncryptPassword("generic password", nil)
-	check := passwordEncryptor.VerifyPassword("generic password", salt, encodedPwd, nil)
+	salt, encodedPwd := passwordEncoder.EncodePassword("generic password", nil)
+	check := passwordEncoder.VerifyPassword("generic password", salt, encodedPwd, nil)
 	fmt.Println(check) // true
 
 	// Using custom options
-	options := &passwordEncryptor.Options{10, 10000, 50, md5.New}
-	salt, encodedPwd = passwordEncryptor.EncryptPassword("generic password", options)
-	check = passwordEncryptor.VerifyPassword("generic password", salt, encodedPwd, options)
+	options := &passwordEncoder.Options{10, 10000, 50, md5.New}
+	salt, encodedPwd = passwordEncoder.EncodePassword("generic password", options)
+	check = passwordEncoder.VerifyPassword("generic password", salt, encodedPwd, options)
 	fmt.Println(check) // true
 }
 

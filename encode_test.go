@@ -1,4 +1,4 @@
-package passwordEncryptor
+package passwordEncoder
 
 import (
 	"encoding/hex"
@@ -7,7 +7,7 @@ import (
 )
 
 func TestEncryptPassword(t *testing.T) {
-	salt, encoded := EncryptPassword("random string", nil)
+	salt, encoded := EncodePassword("random string", nil)
 	if !reflect.DeepEqual(len([]byte(salt)), defaultSaltLen) {
 		t.Error("Received length of salt:", len([]byte(salt)), "Expected length of salt:", defaultSaltLen)
 	}
@@ -21,7 +21,7 @@ func TestEncryptPassword(t *testing.T) {
 }
 
 func TestVerifyPassword(t *testing.T) {
-	salt, encoded := EncryptPassword("a high level password", nil)
+	salt, encoded := EncodePassword("a high level password", nil)
 	if !VerifyPassword("a high level password", salt, encoded, nil) {
 		t.Error("Error while verifying password, check the function")
 	}

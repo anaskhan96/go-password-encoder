@@ -1,4 +1,4 @@
-package passwordEncryptor
+package passwordEncoder
 
 import (
 	"crypto/rand"
@@ -37,9 +37,9 @@ func generateSalt(length int) []byte {
 	return salt
 }
 
-// EncryptPassword takes two arguments, a raw password, and a pointer to an Options struct.
+// EncodePassword takes two arguments, a raw password, and a pointer to an Options struct.
 // In order to use default options, pass `nil` as the second argument.
-func EncryptPassword(rawPwd string, options *Options) (string, string) {
+func EncodePassword(rawPwd string, options *Options) (string, string) {
 	if options == nil {
 		salt := generateSalt(defaultSaltLen)
 		encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, defaultIterations, defaultKeyLen, defaultHashFunction)
