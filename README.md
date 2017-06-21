@@ -1,6 +1,7 @@
 # go-password-encryptor
 [![Build Status](https://travis-ci.org/anaskhan96/go-password-encryptor.svg?branch=master)](https://travis-ci.org/anaskhan96/go-password-encryptor)
 [![GoDoc](https://godoc.org/github.com/anaskhan96/go-password-encryptor?status.svg)](https://godoc.org/github.com/anaskhan96/go-password-encryptor)
+[![Go Report Card](https://goreportcard.com/badge/github.com/anaskhan96/go-password-encryptor)](https://goreportcard.com/report/github.com/anaskhan96/go-password-encryptor)
 
 This package in Go provides functions to encrypt a raw password (example, during registration on a site), and later verify it (example, while logging in to the site).
 
