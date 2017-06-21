@@ -19,3 +19,10 @@ func TestEncryptPassword(t *testing.T) {
 		t.Error("Received length of password:", len(encodedBytes), "Expected length of password:", defaultKeyLen)
 	}
 }
+
+func TestVerifyPassword(t *testing.T) {
+	salt, encoded := EncryptPassword("a high level password", nil)
+	if !VerifyPassword("a high level password", salt, encoded, nil) {
+		t.Error("Error while verifying password, check the function")
+	}
+}
