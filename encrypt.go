@@ -17,8 +17,9 @@ const (
 
 var defaultHashFunction = sha512.New
 
-// Options is a struct for custom values of salt length, number of iterations, encoded key's length,
-// and the hash function being used.
+// Options is a struct for custom values of salt length, number of iterations, the encoded key's length,
+// and the hash function being used. If not provided, it is initialized to the default options:
+// &Options{ 256, 10000, 512, "sha512" }
 type Options struct {
 	SaltLen      int
 	Iterations   int
@@ -50,7 +51,7 @@ func EncryptPassword(rawPwd string, options *Options) (string, string) {
 }
 
 // VerifyPassword takes four arguments, the raw password, its generated salt, the encoded password,
-// and a pointer to the Options struct, and returns a boolean value determining whether the password is the correct one or not,
+// and a pointer to the Options struct, and returns a boolean value determining whether the password is the correct one or not.
 // Passing `nil` as the last argument resorts to default options.
 func VerifyPassword(rawPwd string, salt string, encodedPwd string, options *Options) bool {
 	if options == nil {
