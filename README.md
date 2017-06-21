@@ -4,8 +4,8 @@ This package in Go provides functions to encrypt a raw password (example, during
 
 Functions available:
 ```go
-func EncryptPassword(string, *Options) // takes the raw password along with options, returns generated salt and hex encoded encrypted password
-func VerifyPassword(string, string, string, *Options) // takes the raw password, the generated salt, and encoded password with options, and returns true or false
+func EncryptPassword(string, *Options) (string, string) // takes the raw password along with options, returns generated salt and hex encoded encrypted password
+func VerifyPassword(string, string, string, *Options) bool // takes the raw password, the generated salt, and encoded password with options, and returns true or false
 ```
 
 The `Options` struct is used to enable custom options:
