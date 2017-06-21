@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestEncryptPassword(t *testing.T) {
+func TestEncodePassword(t *testing.T) {
 	salt, encoded := EncodePassword("random string", nil)
 	if !reflect.DeepEqual(len([]byte(salt)), defaultSaltLen) {
 		t.Error("Received length of salt:", len([]byte(salt)), "Expected length of salt:", defaultSaltLen)

@@ -39,6 +39,7 @@ func generateSalt(length int) []byte {
 
 // EncodePassword takes two arguments, a raw password, and a pointer to an Options struct.
 // In order to use default options, pass `nil` as the second argument.
+// It returns the generated salt and encoded key for the user.
 func EncodePassword(rawPwd string, options *Options) (string, string) {
 	if options == nil {
 		salt := generateSalt(defaultSaltLen)
