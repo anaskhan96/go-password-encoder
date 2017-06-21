@@ -9,6 +9,14 @@ import (
 	"golang.org/x/crypto/pbkdf2"
 )
 
+const (
+	defaultSaltLen    = 256
+	defaultIterations = 10000
+	defaultKeyLen     = 512
+)
+
+var defaultHashFunction = sha512.New
+
 // Options is a struct for custom values of salt length, number of iterations, encoded key's length,
 // and the hash function being used.
 type Options struct {
@@ -17,14 +25,6 @@ type Options struct {
 	KeyLen       int
 	HashFunction func() hash.Hash
 }
-
-const (
-	defaultSaltLen    = 256
-	defaultIterations = 10000
-	defaultKeyLen     = 512
-)
-
-var defaultHashFunction = sha512.New
 
 func generateSalt(length int) []byte {
 	const alphanum = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -49,9 +49,12 @@ func EncryptPassword(rawPwd string, options *Options) (string, string) {
 	return string(salt), hex.EncodeToString(encodedPwd)
 }
 
-// VerifyPassword takes three arguments, the raw password, its generated salt, and the encoded password,
-// and returns a boolean value determining whether the password is the correct one or not, verifying with
-// default options, unless a set of custom ones are provided.
-func VerifyPassword(rawPwd string, salt string, encodedPwd string) bool {
-	return encodedPwd == hex.EncodeToString(pbkdf2.Key([]byte(rawPwd), []byte(salt), defaultIterations, defaultKeyLen, defaultHashFunction))
+// VerifyPassword takes four arguments, the raw password, its generated salt, the encoded password,
+// and a pointer to the Options struct, and returns a boolean value determining whether the password is the correct one or not,
+// Passing `nil` as the last argument resorts to default options.
+func VerifyPassword(rawPwd string, salt string, encodedPwd string, options *Options) bool {
+	if options == nil {
+		return encodedPwd == hex.EncodeToString(pbkdf2.Key([]byte(rawPwd), []byte(salt), defaultIterations, defaultKeyLen, defaultHashFunction))
+	}
+	return encodedPwd == hex.EncodeToString(pbkdf2.Key([]byte(rawPwd), []byte(salt), options.Iterations, options.KeyLen, options.HashFunction))
 }
