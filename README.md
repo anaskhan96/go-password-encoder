@@ -31,6 +31,8 @@ Hover over to [Usage](#usage) for a complete example.
 go get github.com/anaskhan96/go-password-encryptor
 ```
 
+Run `go test` in the package's directory to run tests.
+
 ### Usage
 
 Following is an example depicting the usage of this package:
