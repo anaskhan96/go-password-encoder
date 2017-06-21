@@ -18,7 +18,7 @@ const (
 var defaultHashFunction = sha512.New
 
 // Options is a struct for custom values of salt length, number of iterations, the encoded key's length,
-// and the hash function being used. If not provided, it is initialized to the default options:
+// and the hash function being used. If set to `nil`, default options are used:
 // &Options{ 256, 10000, 512, "sha512" }
 type Options struct {
 	SaltLen      int
