@@ -20,7 +20,7 @@ type Options struct {
 	HashFunction func() hash.Hash
 }
 ```
-Passing `nil` as the last argument resorts to using the default options. The default options are as follows:
+Passing `nil` as the last argument in either function resorts to using the default options. The default options are as follows:
 * Length of generated `salt` for the user is `256`
 * Iteration count in [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2) function is `10000`
 * Length of encoded key in [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2) function is `512`
