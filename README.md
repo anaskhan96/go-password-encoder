@@ -7,8 +7,8 @@ This package in Go provides functions to encode a raw password (example, during 
 
 Functions available:
 ```go
-func EncodePassword(string, *Options) (string, string) // takes the raw password along with options, returns generated salt and hex encoded password
-func VerifyPassword(string, string, string, *Options) bool // takes the raw password, the generated salt, and encoded password with options, and returns true or false
+func Encode(string, *Options) (string, string) // takes the raw password along with options, returns generated salt and hex encoded password
+func Verify(string, string, string, *Options) bool // takes the raw password, the generated salt, and encoded password with options, and returns true or false
 ```
 
 The `Options` struct is used to enable custom options:
