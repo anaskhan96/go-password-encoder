@@ -1,4 +1,4 @@
-package passwordEncoder
+package password
 
 import (
 	"crypto/rand"
@@ -40,7 +40,7 @@ func generateSalt(length int) []byte {
 // EncodePassword takes two arguments, a raw password, and a pointer to an Options struct.
 // In order to use default options, pass `nil` as the second argument.
 // It returns the generated salt and encoded key for the user.
-func EncodePassword(rawPwd string, options *Options) (string, string) {
+func Encode(rawPwd string, options *Options) (string, string) {
 	if options == nil {
 		salt := generateSalt(defaultSaltLen)
 		encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, defaultIterations, defaultKeyLen, defaultHashFunction)
@@ -54,7 +54,7 @@ func EncodePassword(rawPwd string, options *Options) (string, string) {
 // VerifyPassword takes four arguments, the raw password, its generated salt, the encoded password,
 // and a pointer to the Options struct, and returns a boolean value determining whether the password is the correct one or not.
 // Passing `nil` as the last argument resorts to default options.
-func VerifyPassword(rawPwd string, salt string, encodedPwd string, options *Options) bool {
+func Verify(rawPwd string, salt string, encodedPwd string, options *Options) bool {
 	if options == nil {
 		return encodedPwd == hex.EncodeToString(pbkdf2.Key([]byte(rawPwd), []byte(salt), defaultIterations, defaultKeyLen, defaultHashFunction))
 	}
