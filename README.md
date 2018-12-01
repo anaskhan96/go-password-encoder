@@ -7,8 +7,8 @@ This package in Go provides functions to encode a raw password (example, during 
 
 Functions available:
 ```go
-func Encode(string, *Options) (string, string) // takes the raw password along with options, returns generated salt and hex encoded password
-func Verify(string, string, string, *Options) bool // takes the raw password, the generated salt, and encoded password with options, and returns true or false
+func Encode(string, *Options) (string, string) {} // takes the raw password along with options, returns generated salt and hex encoded password
+func Verify(string, string, string, *Options) bool {} // takes the raw password, the generated salt, and encoded password with options, and returns true or false
 ```
 
 The `Options` struct is used to enable custom options:
@@ -51,14 +51,14 @@ import (
 
 func main() {
 	// Using the default options
-	salt, encodedPwd := passwordEncoder.EncodePassword("generic password", nil)
-	check := passwordEncoder.VerifyPassword("generic password", salt, encodedPwd, nil)
+	salt, encodedPwd := password.Encode("generic password", nil)
+	check := password.Verify("generic password", salt, encodedPwd, nil)
 	fmt.Println(check) // true
 
 	// Using custom options
-	options := &passwordEncoder.Options{10, 10000, 50, md5.New}
-	salt, encodedPwd = passwordEncoder.EncodePassword("generic password", options)
-	check = passwordEncoder.VerifyPassword("generic password", salt, encodedPwd, options)
+	options := &password.Options{10, 10000, 50, md5.New}
+	salt, encodedPwd = password.Encode("generic password", options)
+	check = password.Verify("generic password", salt, encodedPwd, options)
 	fmt.Println(check) // true
 }
 
