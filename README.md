@@ -1,6 +1,6 @@
 # go-password-encoder
 [![Build Status](https://travis-ci.org/anaskhan96/go-password-encoder.svg?branch=master)](https://travis-ci.org/anaskhan96/go-password-encoder)
-[![GoDoc](https://godoc.org/github.com/anaskhan96/go-password-encoder?status.svg)](https://godoc.org/github.com/anaskhan96/go-password-encoder)
+[![GoDoc](https://godoc.org/github.com/anaskhan96/go-password-encoder?status.svg)](https://pkg.go.dev/github.com/anaskhan96/go-password-encoder)
 [![Go Report Card](https://goreportcard.com/badge/github.com/anaskhan96/go-password-encoder)](https://goreportcard.com/report/github.com/anaskhan96/go-password-encoder)
 
 This package in Go provides functions to encode a raw password (example, during registration on a site), and later verify it (example, while logging in to the site).
