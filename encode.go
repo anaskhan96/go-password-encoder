@@ -37,7 +37,7 @@ func generateSalt(length int) []byte {
 	return salt
 }
 
-// EncodePassword takes two arguments, a raw password, and a pointer to an Options struct.
+// Encode takes two arguments, a raw password, and a pointer to an Options struct.
 // In order to use default options, pass `nil` as the second argument.
 // It returns the generated salt and encoded key for the user.
 func Encode(rawPwd string, options *Options) (string, string) {
@@ -46,12 +46,12 @@ func Encode(rawPwd string, options *Options) (string, string) {
 		encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, defaultIterations, defaultKeyLen, defaultHashFunction)
 		return string(salt), hex.EncodeToString(encodedPwd)
 	}
-	salt := generateSalt(options.KeyLen)
+	salt := generateSalt(options.SaltLen)
 	encodedPwd := pbkdf2.Key([]byte(rawPwd), salt, options.Iterations, options.KeyLen, options.HashFunction)
 	return string(salt), hex.EncodeToString(encodedPwd)
 }
 
-// VerifyPassword takes four arguments, the raw password, its generated salt, the encoded password,
+// Verify takes four arguments, the raw password, its generated salt, the encoded password,
 // and a pointer to the Options struct, and returns a boolean value determining whether the password is the correct one or not.
 // Passing `nil` as the last argument resorts to default options.
 func Verify(rawPwd string, salt string, encodedPwd string, options *Options) bool {
